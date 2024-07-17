@@ -1,0 +1,20 @@
+
+# dependencies
+/node_modules
+
+
+
+# next.js
+/.next/
+
+
+# misc
+*.pem
+
+
+# local env files
+.env*.local
+
+
+# typescript
+next-env.d.ts
