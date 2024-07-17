@@ -7,7 +7,7 @@ This Project contains by now the following features:
 * Some pretty UI components in the login or register pages only
 
 ## Notes && Usage
-* This Project was generated with [bun]('bun.sh') , a new very fast JS runtime and package manager, so it's preferable to install dependencies with:
+* This Project was generated with [bun](https://bun.sh) , a new very fast JS runtime and package manager, so it's preferable to install dependencies with:
 ```
 bun i
 ```
