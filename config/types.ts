@@ -1,10 +1,11 @@
 import { ReactNode } from "react";
 import * as Yup from "yup";
 
-
-
 export const passwordSchema = Yup.string()
-  .matches(/[^A-Za-z0-9]/, "Password must contain at least one special character")
+  .matches(
+    /[^A-Za-z0-9]/,
+    "Password must contain at least one special character"
+  )
   .matches(/[0-9]/, "Password must contain at least one number")
   .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
   .matches(/[a-z]/, "Password must contain at least one lowercase letter")
@@ -23,7 +24,6 @@ export const UserSchema = Yup.object().shape({
     .required("Confirm password is required"),
 });
 
-
 export interface formData {
   username: string;
   password: string;
@@ -31,7 +31,14 @@ export interface formData {
   passwordC?: string;
 }
 
-export interface MenuContextProviderProps{
-  children:ReactNode;
+export interface MenuContextProviderProps {
+  children: ReactNode;
 }
-export type snackBarType = 'info' | 'error' | 'success' | 'warning' | 'loading'
+export type snackBarType = "info" | "error" | "success" | "warning" | "loading";
+
+export type user = {
+  email: string;
+  password: string;
+  username: string;
+  type: "g6Account" | "OAuth";
+};

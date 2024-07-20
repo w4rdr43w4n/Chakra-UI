@@ -1,4 +1,5 @@
 "use client";
+
 import { headerTabs } from "@/config/header";
 import {
   Box,
@@ -11,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import Menu from "./Menu";
+import AccountPanel from "../Auth/AccountPanel";
 
 export default function Header() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -35,6 +37,7 @@ export default function Header() {
                 padding="5px"
                 _hover={{ backgroundColor: hoverBgColor }}
                 as="a"
+                fontWeight={700}
                 key={index}
                 href={tab.href}
                 color={color}
@@ -48,12 +51,8 @@ export default function Header() {
           <Button onClick={toggleColorMode} mr={4}>
             {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
           </Button>
-          <Button variant={"solid"} as={"a"} href="/auth/register" colorScheme={"teal"} size={"sm"} mr={4}>
-            Register
-          </Button>
-          <Button variant={"solid"} as={"a"} href="/auth/login" colorScheme={"teal"} size={"sm"} mr={4}>
-            Login
-          </Button>
+          <AccountPanel />
+          
         </Flex>
       </Flex>
     </Box>

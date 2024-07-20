@@ -3,8 +3,8 @@ type headerTab = {
   href:string
 }
 export const headerTabs:headerTab[] = [
-  {label:'home',href:'/'},
-  {label:'progress',href:'/components/progress'},
-  {label:'controls',href:'/components/controls'},
-  {label:'other',href:'/components/other'},
+  {label:'Home',href:'/'},
+  {label:'Components',href:'/components/components'},
+  {label:'Icons',href:'/components/icons'},
+  {label:'Other',href:'/components/other'},
 ]

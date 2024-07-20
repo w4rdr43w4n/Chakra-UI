@@ -9,7 +9,7 @@ import { hash, compare } from "bcryptjs";
 import { z } from "zod";
 import axios from "axios";
 import { googleProvider, reCAPTCHA } from "@/config/config";
-import { sendPasswordResetMail, sendVerificationMail } from "./mail";
+import {  sendVerificationMail } from "./mail";
 import { generateSecureKey } from "@/lib/utils";
 
 // Auth configuration
@@ -100,6 +100,7 @@ export const login = async (formData: formData): Promise<commonResponse> => {
       username: formData.username,
     },
     select: {
+      email:true,
       password: true,
       isVerified: true,
     },
@@ -116,6 +117,7 @@ export const login = async (formData: formData): Promise<commonResponse> => {
     user: {
       username: formData.username,
       password: formData.password,
+      email:userExists.email,
       type: "g6account",
     },
     expires,
@@ -174,6 +176,7 @@ export const register = async (formData: formData): Promise<commonResponse> => {
 
 export async function logout() {
   cookies().set("session", "", { expires: new Date(0) });
+  return {success:true,message:"logged out"}
 }
 
 export async function validate(formData: formData) {

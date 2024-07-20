@@ -1,10 +1,16 @@
 "use client";
-import SimpleDialogDemo from "@/components/customs/CustomDialogue";
-import CustomDrawer from "@/components/customs/CustomDrawer";
-import BasicModal from "@/components/customs/CustomModal";
-import SimpleSnackbar from "@/components/customs/CustomSnackBar";
-import MultiThreadedSnackBar from "@/components/customs/MultiThreadedSnackBar";
+
+import CustomModal from "@/components/customs/CustomModal";
+import CustomTrigger from "@/components/customs/CustomTrigger";
+import { Flex } from "@chakra-ui/react";
+
+
 
 export default function Page() {
-  return <></>;
+  return (
+    <Flex w={"100%"} direction={"column"} align={"center"} justify={"center"} gap={5}>
+      <CustomTrigger />
+      <CustomModal />
+    </Flex>
+  );
 }

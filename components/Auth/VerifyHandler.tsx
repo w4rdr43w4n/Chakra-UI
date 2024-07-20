@@ -7,6 +7,9 @@ import useMultiSnackbar from "@/hooks/useMultiSnackbar";
 import {
   Box,
   Button,
+  Card,
+  CardBody,
+  Center,
   CircularProgress,
   Flex,
   Text,
@@ -18,14 +21,13 @@ export default function VerifyHandler() {
     loadingText: useColorModeValue("blue.800", "blue.200"),
     infoText: useColorModeValue("black", "blue.100"),
     errorText: useColorModeValue("red.500", "red.300"),
-    successText:useColorModeValue("green.400","green.300"),
-    infoTextBg:useColorModeValue("gray.200","blue.900"),
-
+    successText: useColorModeValue("green.400", "green.300"),
+    infoTextBg: useColorModeValue("gray.200", "blue.900"),
   };
 
   const [isTokenExpired, setExpiredStatus] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [generalError, setGeneralError] = useState(false)
+  const [generalError, setGeneralError] = useState(false);
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
   const token = searchParams.get("token");
@@ -36,7 +38,7 @@ export default function VerifyHandler() {
       const result = await verifyUser(email as string, token as string);
       if (!result.verified) {
         if (result.tokenExpired) setExpiredStatus(true);
-        setGeneralError((!result.verified && !result.tokenExpired))
+        setGeneralError(!result.verified && !result.tokenExpired);
         addMessage(result.error, "error", 6000);
       } else {
         addMessage(
@@ -48,7 +50,7 @@ export default function VerifyHandler() {
       setLoading(false);
     }
     verify();
-  }, []);
+  },[]);
   async function handleReset() {
     setLoading(true);
     const refresh = await refreshUserToken(email as string);
@@ -64,28 +66,65 @@ export default function VerifyHandler() {
       {loading ? (
         <VStack>
           <CircularProgress size={100} isIndeterminate color="blue.300" />
-          <Text fontSize="xl"  color={colors.loadingText}>Processing...</Text>
+          <Text fontSize="xl" color={colors.loadingText}>
+            Processing...
+          </Text>
         </VStack>
       ) : (
         <Box>
           {isTokenExpired ? (
-            <VStack boxShadow="0px 0px 8px #000" padding="20px" borderRadius="5px" bg={colors.infoTextBg}>
-              <Text fontSize="2xl" fontWeight={700} color={colors.infoText} >
-                Your verification token expired, click below to reset it
-              </Text>
-              <Button colorScheme="teal" onClick={handleReset}>Reset Token</Button>
-            </VStack>
+            <Card>
+              <CardBody>
+                <Flex align={"center"} direction={"column"}>
+                  <Text fontSize="2xl" fontWeight={700} color={colors.infoText}>
+                    Your verification token expired, click below to reset it
+                  </Text>
+                  <Button colorScheme="teal" onClick={handleReset}>
+                    Reset Token
+                  </Button>
+                </Flex>
+              </CardBody>
+            </Card>
           ) : (
             <Box>
               {!email || !token ? (
-                <Text fontSize="2xl" fontWeight={700} color={colors.errorText}>Bad Request 403</Text>
+                <Card>
+                  <CardBody>
+                    <Text
+                      fontSize="2xl"
+                      fontWeight={700}
+                      color={colors.errorText}
+                    >
+                      Bad Request 403
+                    </Text>
+                  </CardBody>
+                </Card>
               ) : (
                 <Box>
                   {generalError ? (
-                    <Text fontSize="2xl" fontWeight={700} color={colors.errorText}>An error occured , account not verified</Text>
-                  ):(
-
-                    <Text fontSize="2xl" fontWeight={700} color={colors.successText}>Account Verified Successfully</Text>
+                    <Card>
+                      <CardBody>
+                        <Text
+                          fontSize="2xl"
+                          fontWeight={700}
+                          color={colors.errorText}
+                        >
+                          An error occured , account not verified
+                        </Text>
+                      </CardBody>
+                    </Card>
+                  ) : (
+                    <Card>
+                      <CardBody>
+                        <Text
+                          fontSize="2xl"
+                          fontWeight={700}
+                          color={colors.successText}
+                        >
+                          Account Verified Successfully
+                        </Text>
+                      </CardBody>
+                    </Card>
                   )}
                 </Box>
               )}
